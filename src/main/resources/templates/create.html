@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="post" action="/notes/create">
+
+    <p style="color:red" th:text="${error}"></p>
+
+    <input type="text" name="title" placeholder="Title"/>
+
+    <textarea name="content" placeholder="Content"></textarea>
+
+    <button type="submit">Create</button>
+
+</form>
+
+<form method="post" th:object="${noteForm}">
+
+    <input type="text" th:field="*{title}" />
+    <p th:if="${#fields.hasErrors('title')}"
+       th:errors="*{title}"></p>
+
+    <textarea th:field="*{content}"></textarea>
+    <p th:if="${#fields.hasErrors('content')}"
+       th:errors="*{content}"></p>
+
+    <button type="submit">Save</button>
+
+</form>
+</body>
+</html>
