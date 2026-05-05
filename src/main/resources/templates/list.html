@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form method="get">
+  <input type="text" name="keyword" th:value="${keyword}" />
+  <button type="submit">Search</button>
+</form>
+
+<tr th:each="note, stat : ${notes}">
+  <td th:text="${stat.index + 1}"></td>
+  <td th:text="${note.title}"></td>
+  <td th:text="${#strings.substring(note.content,0,50)}"></td>
+  <td>
+    <span th:each="tag : ${note.tags}" th:text="${tag.name}"></span>
+  </td>
+</tr>
+
+<a th:if="${currentPage > 0}"
+   th:href="@{/notes(page=${currentPage - 1})}">Prev</a>
+
+<span th:text="${currentPage + 1}"></span>
+
+<a th:if="${currentPage < totalPages - 1}"
+   th:href="@{/notes(page=${currentPage + 1})}">Next</a>
+</body>
+</html>
